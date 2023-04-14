@@ -25,37 +25,31 @@ class BinarySearchTree {
     return this.node;
   }
 
-add_node(rootNode, addNode) {
-  console.log('222', rootNode.value);
-  console.log('333', addNode);
-  
-  if (rootNode.data > addNode.data) {
+  add_node(rootNode, addNode) {
+    if (rootNode.data > addNode.data) {
       if (rootNode.left === null) {
-         rootNode.left = addNode;
+        rootNode.left = addNode;
       } else {
         this.add_node(rootNode.left, addNode);
       }  
     }  
     if (rootNode.data < addNode.data) {
       if (rootNode.right === null) {
-         rootNode.right = addNode;
+        rootNode.right = addNode;
       } else {
         this.add_node(rootNode.right, addNode);
       }  
     }            
-}
-
-add(data) {
-  console.log('data', data);
-const temp = new ListNode(data);
-  if (this.node === null) {
-    this.node = temp;
-    return;
-  } else {
-    this.add_node(this.node, temp);
   }
-}
 
+  add(data) {
+    const temp = new ListNode(data);
+    if (this.node === null) {
+      this.node = temp;
+    } else {
+      this.add_node(this.node, temp);
+    }
+  }
 
   has(/* data */) {
     throw new NotImplementedError('Not implemented');
