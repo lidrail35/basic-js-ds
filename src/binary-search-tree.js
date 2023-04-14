@@ -37,7 +37,7 @@ class BinarySearchTree {
       if (rootNode.right === null) {
         rootNode.right = addNode;
       } else {
-        this.add_node(rootNode.right, addNode);
+        return this.add_node(rootNode.right, addNode);
       }  
     }            
   }
@@ -56,10 +56,21 @@ class BinarySearchTree {
     // remove line with error and write your code here
   }
 
-  find(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  find(data) {
+    let node = this.root();
+    if (node === null) {
+      return null;
+    }
+
+    while (node) {   
+      if (node.data === data) return node;
+      if (node.data > data ) { node = node.left };
+      if (node.data < data ) { node = node.right } 
+    }
+    return null;
   }
+
+
 
   remove(/* data */) {
     throw new NotImplementedError('Not implemented');
