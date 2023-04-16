@@ -85,38 +85,44 @@ class BinarySearchTree {
     return null;
   }
 
-  remove(data) {
-    let prev = this.root();
-    let node = this.root();
-    if (node === null) {return false}
+  remove_node(node, data) {
+    if (node === null) { return null }
 
-    while (node) {   
-      //console.log('in', node.data);
+    if (node.data > data) { 
+      node.left = this.remove_node(node.left, data);
+      return node;
+    } else 
+    if (node.data < data) { 
+      node.right = this.remove_node(node.right, data);
+      return node;
+    } else {
       if (node.data === data) {
-         if ( (!node.left) && (!node.right) ) {
-           if (prev.data > node.data) {
-             prev.left = null;
-           } else {prev.right = null}
-         }
-        
-         if ( (!node.left) || (!node.right) ) {
-           if (prev.data > node.data) {
-             prev.left = node.left;
-           } else {prev.right = node.right}
-         }
-        
-        return true;
-      };
-      
-      prev = node;
-      if (node.data > data ) {node = node.left} 
-        else {
-        if (node.data < data ) {node = node.right}  
-      } 
-    }
-    return false;
+        if ((!node.left) && (!node.right)) { return null}
+      }
+
+      if ((!node.left) || (!node.right)) {
+        if (node.left === null) {
+          node = node.right;
+        } else { node = node.left }
+        return node;
+      }      
+
+      if ((node.left) && (node.right)) {
+        let min_data = node.right;
+        while (min_data.left) {
+          min_data = min_data.left;           
+        }
+        node.data = min_data.data;
+        node.right = this.remove_node(node.right, min_data.data);
+        return node;
+      }
+    }  
   }
 
+  remove(data) {
+    return this.remove_node(this.root(), data);
+  }
+ 
   min() {
     let node = this.root();
     if (node === null) {
